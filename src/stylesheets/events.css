@@ -1,0 +1,8 @@
+.events-list {
+    display: flex;
+    list-style: none;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    row-gap: 0.875rem;
+    padding: 2rem;
+}

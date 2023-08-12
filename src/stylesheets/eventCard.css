@@ -1,0 +1,24 @@
+.event-card-container {
+    box-shadow: -5px 2px 20px 0 rgba(0, 0, 0, 0.2);
+    padding: 1.8rem;
+    padding-bottom: .875rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+}
+
+button {
+    margin-top: .6rem;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+    font-size: larger;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+button:hover {
+    color: rgb(84, 188, 244);
+    text-shadow: 0 0 1px rgb(84, 188, 244);
+}
