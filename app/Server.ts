@@ -1,11 +1,9 @@
-//var express = require('express');
 import express from 'express';
 var bodyParser = require('body-parser');
 var cors = require('cors');
 const mongoose = require('mongoose');
 import Event from './models/Event';
-//const Event = require('./models/Event');
-//import { createServer } from "http";
+
 
 const app = express();
 app.use(cors())
@@ -13,17 +11,15 @@ app.use(bodyParser.json());
 
 
 app.get('/event', async  (req, res) => {
-    const events = await Event.find();
+    //const events = await Event.find();
+    //Event.find().then((events) => console.log(events))
+    //.catch((err) => console.log(err));
     //res.send(events);
-    res.status(200);
-    res.json(events);
-    res.end();
+    //res.status(200);
+    //res.json(events);
+    //res.end();
 })
 
-//app.post('/event', (req, res) => {
-//  console.log(req.body);
-//  res.status(200).end();
-//})
 
 
 app.post("/event", async (req, res) => {
@@ -37,6 +33,46 @@ app.post("/event", async (req, res) => {
     res.status(200);
     res.end();
 });
+
+app.put("/event/:id", async (req, res) => {
+    const event = new Event({
+        _id: req.params.id,
+        title: req.body.title,
+        description: req.body.description,
+        location : req.body.location,
+      });
+      Event.updateOne({_id: req.params.id}, event).then(
+        () => {
+          res.status(201).json({
+            message: 'Thing updated successfully!'
+          });
+        }
+      ).catch(
+        (error) => {
+          res.status(400).json({
+            error: error
+          });
+        }
+      );
+  
+});
+
+app.delete('/event/:id', async (req, res) => {
+    Event.deleteOne({_id: req.params.id}).then(
+      () => {
+        res.status(200).json({
+          message: 'Deleted!'
+        });
+      }
+    ).catch(
+      (error) => {
+        res.status(400).json({
+          error: error
+        });
+      }
+    );
+  });
+
 
 
 async function init() {
