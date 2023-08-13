@@ -1,17 +1,17 @@
 import React from 'react';
-import '../../App.css';
+import '../App.css';
 import { Link } from 'react-router-dom';
 
 function Home() {
-    return (
-      <>
+  return (
+    <>
       <Link to='add'>
-      <button>
+        <button className='btn-add-event'>
           Add Event
-      </button>
+        </button>
       </Link>
-      </>
-    );
-  }
-  
-  export default Home;
+    </>
+  );
+}
+
+export default Home;
