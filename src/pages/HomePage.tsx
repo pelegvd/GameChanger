@@ -1,15 +1,12 @@
 import React from 'react';
 import '../App.css';
-import { Link } from 'react-router-dom';
+import AddEvent from './AddEventPage';
+import { useState } from "react";
 
 function Home() {
   return (
     <>
-      <Link to='add'>
-        <button className='btn-add-event'>
-          Add Event
-        </button>
-      </Link>
+      <AddEvent />
     </>
   );
 }
