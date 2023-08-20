@@ -1,22 +1,18 @@
 import express from 'express';
-var router = express.Router();
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 import Event from '../models/Event';
+export const router = express.Router();
 
 
-
-router.get('/event', async  (req, res) => {
-    //const events = await Event.find();
-    //Event.find().then((events) => console.log(events))
-    //.catch((err) => console.log(err));
-    //res.send(events);
-    //res.status(200);
-    //res.json(events);
-    //res.end();
+router.get('/', async  (req, res) => {
+    const events = await Event.find();
+    res.status(200);
+    res.json(events);
+    res.end();
 })
 
 
-router.post("/event", async (req, res) => {
+router.post("/", async (req, res) => {
     await Event.create({
         id : new mongoose.Types.ObjectId(),
         title : req.body.title,
@@ -28,7 +24,7 @@ router.post("/event", async (req, res) => {
     res.end();
 });
 
-router.put("/event/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
     const event = new Event({
         _id: req.params.id,
         title: req.body.title,
@@ -51,7 +47,7 @@ router.put("/event/:id", async (req, res) => {
   
 });
 
-router.delete('/event/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     Event.deleteOne({_id: req.params.id}).then(
       () => {
         res.status(200).json({
@@ -67,4 +63,4 @@ router.delete('/event/:id', async (req, res) => {
     );
   });
 
-  module.exports = router;
+
