@@ -46,8 +46,7 @@ const App: React.FC = () => {
   return (
     <div className="app-container">
       <Router>
-        {/*<NavBar />*/}
-        <Navigation />
+        <NavBar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/add" element={<AddEvent />} />
