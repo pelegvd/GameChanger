@@ -1,12 +1,9 @@
 import {
   Button,
-  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
-  FormControlLabel,
   IconButton,
   Stack,
   TextField,
@@ -15,14 +12,16 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import React from "react";
 import Autocomplete from "@mui/material/Autocomplete";
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+
 
 document.body.addEventListener("submit", async function (event) {
   event.preventDefault();
   const form = event.target as HTMLFormElement;
-  const foo = new FormData(form)
-  //console.log(Object.fromEntries(foo.entries()));
-  console.log(JSON.stringify(Object.fromEntries(foo.entries())))
-  await fetch('http://localhost:9000/event', {method:'post', headers:{"content-Type":"application/json"}, body:JSON.stringify(Object.fromEntries(foo.entries()))})
+  const data = new FormData(form)
+  await fetch('http://localhost:9000/event', {method:'post', headers:{"content-Type":"application/json"}, body:JSON.stringify(Object.fromEntries(data.entries()))})
   .then((response: Response) => response.json()) 
   .then((json) => json)
   .catch((error) => console.log(error));
@@ -39,6 +38,13 @@ function AddEvent() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(event.target);
+  };
+  
+
+  const [age, setAge] = React.useState('');
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value);
   };
 
   const defaultProps = {
@@ -71,80 +77,74 @@ function AddEvent() {
           {/* <DialogContentText>Do you want remove this user?</DialogContentText> */}
           <Stack spacing={2} margin={2}>
           <form>
-          {/*className="ui form" onSubmit={e => {
-          //e.preventDefault();
-          //const foo = new FormData(e)
-          //console.log(Object.fromEntries(e))
-          //const foo = new FormData(e.target)
-          //console.log(Object.fromEntries(foo.entries()));
-         // fetch('http://localhost:9000/event', {method:'post',body:JSON.stringify(Object.fromEntries(foo.entries())), headers:{contentType:"application/json"}})
-          //}}>*/}
-              <div>
+              <Stack margin={2}>
                 <label>Event Name</label>
                 <TextField
                   required
                   fullWidth
                   id="outlined-required"
-                  label="Required"
                   name="title"
-                  margin="normal"
                   placeholder="Event Name"
                 />
-              </div>
-              <div>
+              </Stack>
+              <Stack margin={2}>
                 <label>Description</label>
                 <TextField
                   id="outlined-multiline-static"
                   fullWidth
+                  required
                   multiline
-                  margin="normal"
                   rows={9}
                   name="description"
                   placeholder="Description"
                 />
-              </div>
-              <div>
-                <label>Location</label>
-                <input name="location" placeholder="location" />
-              </div>
-              <Stack>
-                <Autocomplete
-                  {...defaultProps}
-                  id="clear-on-escape"
-                  clearOnEscape
-                  includeInputInList
-                  size="small"
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Choose Category"
-                      variant="standard"
-                    />
-                  )}
+              </Stack>
+              <Stack margin={2}>
+              <label>Location</label>
+                <TextField
+                  required
+                  fullWidth
+                  id="outlined-required"
+                  //name="location"
+                  placeholder="Location"
                 />
               </Stack>
-              <div>
+              <Stack spacing={2} direction='row'>
+              <Stack margin={2}>
+                 <Select
+          labelId="demo-simple-select-required-label"
+          id="demo-simple-select-required"
+          value={age}
+          size="small"
+          label="Age *"
+          onChange={handleChange}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </Select>
+        <FormHelperText>Please select category</FormHelperText>
+              </Stack>
+              <Stack margin={2}>
                 <TextField
                   id="outlined-number"
-                  label="Number"
+                  label="Members"
                   type="number"
                   //name="members"
                   InputLabelProps={{
                     shrink: true,
                   }}
                 />
-              </div>
-              <div>
-                <button className="btn-submit" type="submit">
-                  Add
-                </button>
-              </div>
+              </Stack>
+              </Stack>
             </form>
           </Stack>
         </DialogContent>
         <DialogActions>
-          {/* <Button color="success" variant="contained">Yes</Button>
-                    <Button onClick={closepopup} color="error" variant="contained">Close</Button> */}
+          <Button className="btn-submit" type="submit" variant="outlined">Add</Button>
         </DialogActions>
       </Dialog>
     </div>
