@@ -6,6 +6,7 @@ import Home from "./pages/HomePage";
 import AddEvent from "./pages/AddEventPage";
 import EventPage from "./components/eventPage";
 import EventPage1 from "./pages/EventPage";
+import Navigation from "./components/Navigation";
 
 interface Event {
   title: string;
@@ -45,7 +46,8 @@ const App: React.FC = () => {
   return (
     <div className="app-container">
       <Router>
-        <NavBar />
+        {/*<NavBar />*/}
+        <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/add" element={<AddEvent />} />
@@ -59,3 +61,5 @@ const App: React.FC = () => {
 };
 
 export default App;
+
+//https://palettes.shecodes.io/palettes?page=6

@@ -57,7 +57,7 @@ function AddEvent() {
   const [value, setValue] = React.useState<FilmOptionType | null>(null);
   return (
     <div style={{ textAlign: "center" }}>
-      <Button onClick={functionopenpopup} color="primary" variant="contained">
+      <Button onClick={functionopenpopup} color="primary" variant="outlined">
         Add Event
       </Button>
       <Dialog
