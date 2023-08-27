@@ -1,6 +1,9 @@
 import React from 'react'
 import '../stylesheets/Main.css'
+<<<<<<< HEAD
 import { Typography, Box , Grid} from '@mui/material'
+=======
+>>>>>>> 3b2091d (add main component)
 
 export default function Main() {
   return (
@@ -14,9 +17,12 @@ export default function Main() {
             </div>
         </div>
     </div>
+<<<<<<< HEAD
     <Grid item xs={6} container spacing={2} borderColor={black} >
     <Typography variant="h1" >Let's get started</Typography>
     </Grid>
+=======
+>>>>>>> 3b2091d (add main component)
   </div>
   )
 }
