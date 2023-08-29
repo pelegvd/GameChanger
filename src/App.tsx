@@ -1,20 +1,13 @@
 import React from 'react';
 import NavBar from './components/NavBar';
-import { BrowserRouter as Router, Routes, Route,useParams  } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Events from './pages/events';
 import Home from './pages/HomePage';
 import AddEvent from './pages/AddEventPage';
 import EventPage from './components/eventPage';
 
-interface Event {
-  title: string;
-  companyName: string;
-  description: string;
-}
-
-
 const App: React.FC = () => {
-  
+
   return (
     <div className='app-container'>
       <Router>
