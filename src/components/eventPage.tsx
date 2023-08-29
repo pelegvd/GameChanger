@@ -22,7 +22,7 @@ const EventPage: React.FC = () => {
     }
 
     return (
-        <div className="event-page-container">
+         <div className="event-page-container">
             <Typography variant="h2">{myEvent.title}</Typography>
             <Typography variant="h3">{myEvent.companyName}</Typography>
             <Typography variant="h6">{myEvent.description}</Typography>
