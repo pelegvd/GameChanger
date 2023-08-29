@@ -6,12 +6,11 @@ import { router } from './routes/routes';
 
 const app = express();
 
-
 app.use(cors());
 app.use(bodyParser.json());
 
+
 app.use('/event',router);
-app.use('/events',router);
 
 
 async function init() {
@@ -25,7 +24,7 @@ async function init() {
   await mongoose.connect(mongoConnectionString);
 
   app.listen(9000, () =>
-    console.log(`server started on port:9000`)
+    console.log(`server started on http://localhost:9000`)
   );
 }
 
