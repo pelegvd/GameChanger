@@ -1,14 +1,14 @@
 import express from "express";
-var bodyParser = require("body-parser");
-var cors = require("cors");
-const mongoose = require("mongoose");
+import bodyParser from "body-parser";
+import cors from "cors";
+import mongoose from "mongoose";
 import { router } from './routes/routes';
 
 const app = express();
 
-
 app.use(cors());
 app.use(bodyParser.json());
+
 
 app.use('/event',router);
 
@@ -29,5 +29,3 @@ async function init() {
 }
 
 init();
-
-

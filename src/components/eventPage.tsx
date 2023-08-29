@@ -1,24 +1,34 @@
 import React from "react";
-
+import { useParams, useLocation } from "react-router-dom";
+import { Typography, Paper, Box } from "@mui/material";
+ 
 interface Event {
-  title: string;
-  companyName: string;
-  description: string;
+    _id: string;
+    title: string;
+    companyName: string;
+    description: string;
 }
 
-interface EventPageProps {
-  myEvent: Event;
-}
+const EventPage: React.FC = () => {
+    const { eventID } = useParams<{ eventID: string }>();
+    const location = useLocation();
 
-const EventPage: React.FC<EventPageProps> = ({ myEvent }) => {
-  return (
-    <div className="event-page-container">
-      <h1>{myEvent.title}</h1>
-      <h2>{myEvent.companyName}</h2>
-      <p>{myEvent.description}</p>
-      <h2>Location on Google Maps</h2>
-    </div>
-  );
+    const events: Event[] | undefined = location.state?.events;
+
+    const myEvent = events?.find(e => e._id === eventID);
+
+    if (!myEvent) {
+        return <div>Event not found</div>;
+    }
+
+    return (
+         <div className="event-page-container">
+            <Typography variant="h2">{myEvent.title}</Typography>
+            <Typography variant="h3">{myEvent.companyName}</Typography>
+            <Typography variant="h6">{myEvent.description}</Typography>
+            <Typography variant="body1">Location on Google Maps</Typography>
+        </div>
+    );
 };
 
 export default EventPage;
