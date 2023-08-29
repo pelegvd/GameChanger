@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import EventCard from "../components/eventCard";
-import EventPage from "../components/eventPage";  
+import EventPage from "../components/eventPage";
+import { events } from "../eventClint";
 
 import '../stylesheets/events.css';
 
-interface Event {
-    title: string;
-    companyName: string;
-    description: string;
-}
 
-interface EventsProps {
+
+interface Events{
     events: Event[];
 }
 
-const Events: React.FC<EventsProps> = (props) => {
+const Events: React.FC = () => {
     const [isShow, setIsShow] = useState(false);
     const [currentEvent, setCurrentEvent] = useState<Event | null>(null);
 
@@ -24,24 +21,21 @@ const Events: React.FC<EventsProps> = (props) => {
     };
 
     return (
-        (!isShow) ? (
+        (
             <div className="events-container">
                 <ul className="events-list">
-                    {props.events.map((event, index) => (
+                    {events.map((event, index) => (
                         <li key={index}>
                             <EventCard
+                                id={event.id}
                                 title={event.title}
                                 companyName={event.companyName}
                                 description={event.description}
-                                handleClick={handleClick}
                             />
                         </li>
                     ))}
                 </ul>
             </div>
-        ) :
-        currentEvent && (
-            <EventPage myEvent={currentEvent} />
         )
     );
 };

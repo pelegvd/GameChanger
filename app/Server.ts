@@ -1,41 +1,47 @@
-//var express = require('express');
-import express from 'express';
-var bodyParser = require('body-parser');
-var cors = require('cors');
-const mongoose = require('mongoose');
+import express, { Request, Response } from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import mongoose from 'mongoose';
 import Event from './models/Event';
-//const Event = require('./models/Event');
-//import { createServer } from "http";
 
 const app = express();
-app.use(cors())
+app.use(cors());
 app.use(bodyParser.json());
 
 
-app.get('/event', async  (req, res) => {
-    const events = await Event.find();
-    //res.send(events);
-    res.status(200);
-    res.json(events);
-    res.end();
+app.get('/event', async (req: Request, res: Response) => {
+    try {
+        const events = await Event.find({});
+        res.status(200).json(events);
+    } catch (error) {
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
 })
 
-//app.post('/event', (req, res) => {
-//  console.log(req.body);
+//app.post('/event', (req: Request, res: Response) => {
+//  console.log(req: Request.body: Response);
 //  res.status(200).end();
 //})
 
 
-app.post("/event", async (req, res) => {
-    await Event.create({
-        id : new mongoose.Types.ObjectId(),
-        title : req.body.title,
-        description : req.body.description,
-        location : req.body.location,
-    });
+app.post("/event", async (req: Request, res: Response) => {
+    try {
+        const newEvent = new Event({
+            id: new mongoose.Types.ObjectId(),
+            title: req.body.title,
+            description: req.body.description,
+            location: req.body.location,
+        });
+    
 
-    res.status(200);
-    res.end();
+    await newEvent.save();
+
+    res.status(200).end();
+
+    }catch(error) {
+        res.status(500).json({error: 'Internal Server Error'});
+    }
+    
 });
 
 
@@ -45,8 +51,11 @@ async function init() {
     if (!mongoConnectionString) {
         throw new Error("must configure mongo connection string");
     }
-
-    await mongoose.connect(mongoConnectionString);
+    try {
+        await mongoose.connect(mongoConnectionString);
+    } catch (error) {
+        console.log('Error connection to MongoDB', error);
+    }
 
     app.listen(9000, () => console.log(`server started on http://localhost:9000`));
 }

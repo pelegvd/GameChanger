@@ -1,6 +1,8 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import { events } from "../eventClint";
 
-import '../stylesheets/eventPage.css';
+// import '../stylesheets/eventPage.css';
 
 interface Event {
     title: string;
@@ -12,8 +14,15 @@ interface EventPageProps {
     myEvent: Event;
 }
 
-const EventPage: React.FC<EventPageProps> = ({ myEvent }) => {
+const EventPage: React.FC = () => {
 
+    const { eventID } = useParams();
+    const myEvent = events.find(e => e.id === Number(eventID))
+    if (!myEvent) {
+        return <div>
+            Event not found
+        </div>
+    }
     return (
         <div className="event-page-container">
             <h1>{myEvent.title}</h1>

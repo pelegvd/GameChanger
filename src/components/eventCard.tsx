@@ -1,38 +1,44 @@
 import React from "react";
-import '../stylesheets/eventCard.css';
+import { Link } from "react-router-dom";
+import { Typography, Paper, Box } from "@mui/material";
 
 interface SingleEventProps {
+    id: number;
     title: string;
     companyName: string;
     description: string;
-    handleClick: (myEvent: SingleEventProps) => void;
+    // handleClick: (myEvent: SingleEventProps) => void;
 }
 
 const EventCard: React.FC<SingleEventProps> = (props) => {
-    const { title, companyName, description, handleClick } = props;
-
-    const handleButtonClick = () => {
-        const currentEvent: SingleEventProps = {
-            title,
-            companyName,
-            description,
-            handleClick: props.handleClick  
-        };
-
-        handleClick(currentEvent);
-    };
-
+    const { id,title, companyName, description } = props;
     return (
-        <div className="event-card-container">
-            <div>
-                <h1>{title}</h1>
-                <h2>{companyName}</h2>
-                <p>{description}</p>
-            </div>
-            <button className="btn-event-card" onClick={handleButtonClick}>
-                Interested
-            </button>
-        </div>
+        <Box
+            sx={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                '& > :not(style)': {
+                    m: 1,
+                    p: 2,
+                    width: 500,
+                    height: 190,
+                    display: 'flex',        
+                    flexDirection: 'column', 
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                },
+            }}
+        >
+            <Paper elevation={5} >
+                <Typography variant="h3">{title}</Typography>
+                <Typography variant="h4">{companyName}</Typography>
+                <Typography variant="body2">{description}</Typography>
+                <Link to={id.toString()}>
+                    Interested
+                </Link>
+            </Paper>
+        </Box>
+
     );
 }
 
