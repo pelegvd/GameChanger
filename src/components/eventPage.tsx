@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { Typography, Paper, Box } from "@mui/material";
- 
+
 interface Event {
     _id: string;
     title: string;
@@ -24,9 +24,9 @@ const EventPage: React.FC = () => {
     return (
         <div className="event-page-container">
             <Typography variant="h2">{myEvent.title}</Typography>
-            <Typography variant="h2">{myEvent.companyName}</Typography>
-            <p>{myEvent.description}</p>
-            <h2>Location on Google Maps</h2>
+            <Typography variant="h3">{myEvent.companyName}</Typography>
+            <Typography variant="h6">{myEvent.description}</Typography>
+            <Typography variant="body1">Location on Google Maps</Typography>
         </div>
     );
 };
