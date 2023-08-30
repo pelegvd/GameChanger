@@ -22,5 +22,5 @@ const Footer = () => {
 export default Footer;
 
 //https://github.com/app-generator/sample-react-mui-introduction/blob/main/src/styles/styles.js
-\//https://blog.appseed.us/mui-react-coding-landing-page/
+//https://blog.appseed.us/mui-react-coding-landing-page/
 //https://v3.mui.com/getting-started/page-layout-examples/
