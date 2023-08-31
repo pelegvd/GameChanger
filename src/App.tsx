@@ -5,8 +5,6 @@ import Events from "./pages/events";
 import Home from "./pages/HomePage";
 import AddEvent from "./pages/AddEventPage";
 import EventPage from "./components/eventPage";
-import EventPage1 from "./pages/EventPage";
-import Navigation from "./components/Navigation";
 
 const App: React.FC = () => {
   
@@ -17,7 +15,7 @@ const App: React.FC = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/add' element={<AddEvent />} />
-          <Route path='/events' element={<Events />} />
+          <Route path='/eventspage' element={<Events />} />
           <Route path='/events/:eventID' element={<EventPage />} />
         </Routes>
       </Router>
