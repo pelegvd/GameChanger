@@ -3,14 +3,22 @@ import mongoose from 'mongoose';
 import Event from '../models/Event';
 export const router = express.Router();
 
-
-router.get('/', async  (req, res) => {
+router.get('/', async (req, res) => {
+  try {
     const events = await Event.find();
-    res.status(200);
-    res.json(events);
-    res.end();
-})
+    res.status(200).json(events);
+  } catch (err) {
+    console.log("Error from backend:", err);
+    res.status(500).send("Internal Server Error: Something went wrong while fetching events.");
+  }
+});
 
+// router.get('/', async  (req, res) => {
+//     const events = await Event.find();
+//     res.status(200);
+//     res.json(events);
+//     res.end();
+// })
 
 router.post("/", async (req, res) => {
     await Event.create({
@@ -62,5 +70,3 @@ router.delete('/:id', async (req, res) => {
       }
     );
   });
-
-

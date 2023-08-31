@@ -1,16 +1,17 @@
 import express from "express";
-var bodyParser = require("body-parser");
-var cors = require("cors");
-const mongoose = require("mongoose");
+import bodyParser from "body-parser";
+import cors from "cors";
+import mongoose from "mongoose";
 import { router } from './routes/routes';
 
 const app = express();
 
-
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use('/event',router);
+
+app.use('/event', router);
+app.use('/eventspage', router);
 
 
 async function init() {
@@ -22,12 +23,11 @@ async function init() {
   }
 
   await mongoose.connect(mongoConnectionString);
+  console.log("connected to mongoDB");
 
   app.listen(9000, () =>
-    console.log(`server started on http://localhost:9000`)
+    console.log(`server started on port: 9000`)
   );
 }
 
 init();
-
-

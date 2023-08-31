@@ -6,7 +6,7 @@ export const MenuItem = [
   },
   {
     title: "Event",
-    url: "/events",
+    url: "/eventspage",
     cName: "nav-links",
   },
   {
