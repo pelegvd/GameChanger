@@ -13,10 +13,9 @@ export interface Event {
 
 export const Events: React.FC = () => {
     const [events, setEvents] = useState<Event[]>([])
-
     useEffect(() => {
         axios
-            .get("http://localhost:9000/events")
+            .get("http://localhost:9000/eventspage")
             .then((res) => {
                 console.log(res.data);
                 setEvents(res.data);

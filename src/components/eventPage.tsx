@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { Typography, Paper, Box } from "@mui/material";
+import { Typography } from "@mui/material";
 
 interface Event {
     _id: string;
