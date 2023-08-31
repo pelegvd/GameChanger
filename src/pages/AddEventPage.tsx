@@ -15,16 +15,22 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
+import { eventPost } from '../api/EventService';
 
 
 document.body.addEventListener("submit", async function (event) {
   event.preventDefault();
-  const form = event.target as HTMLFormElement;
-  const data = new FormData(form)
-  await fetch('http://localhost:9000/event', {method:'post', headers:{"content-Type":"application/json"}, body:JSON.stringify(Object.fromEntries(data.entries()))})
-  .then((response: Response) => response.json()) 
-  .then((json) => json)
-  .catch((error) => console.log(error));
+  //const form = event.target as HTMLFormElement;
+  const data = new FormData(event.target as HTMLFormElement)
+  const jsonData = JSON.stringify(Object.fromEntries(data.entries()))
+  //await fetch('http://localhost:9000/event', {method:'post', headers:{"content-Type":"application/json"}, body:JSON.stringify(Object.fromEntries(data.entries()))})
+  try {
+    const result = await eventPost(jsonData);
+    return result.status;
+  } catch (error: any) {
+    const status = error.response.status;
+    console.log(status);
+  }
 });
 
 function AddEvent() {
@@ -105,7 +111,7 @@ function AddEvent() {
                   required
                   fullWidth
                   id="outlined-required"
-                  //name="location"
+                  name="location"
                   placeholder="Location"
                 />
               </Stack>

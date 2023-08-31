@@ -15,14 +15,18 @@ import { Stack, Grid, Paper } from '@mui/material'
 import Divider from '@mui/material/Divider';
 //import Markdown from './Markdown';
 import Main from "../components/Main";
+import useStyles from '../stylesheets/Footer';
 
 function Home() {
   
+  const classes = useStyles(); 
+
   return (
     <>
       <AddEvent />
-      <Main />
-      <Box width='500px'>
+    
+      
+      <Box width='1000px' display={"flex"}>
       <Card>
         <CardMedia
           component='img'
