@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mui/styles": "^5.14.7",
     "cors": "^2.8.5",
     "mongodb": "^5.7.0",
     "mongoose": "^7.4.3"

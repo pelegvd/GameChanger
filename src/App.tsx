@@ -7,16 +7,15 @@ import AddEvent from "./pages/AddEventPage";
 import EventPage from "./components/eventPage";
 
 const App: React.FC = () => {
-  
   return (
     <div className="app-container">
       <Router>
         <NavBar />
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/add' element={<AddEvent />} />
-          <Route path='/eventspage' element={<Events />} />
-          <Route path='/events/:eventID' element={<EventPage />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/add" element={<AddEvent />} />
+          <Route path="/eventspage" element={<Events />} />
+          <Route path="/events/:eventID" element={<EventPage />} />
         </Routes>
       </Router>
     </div>
