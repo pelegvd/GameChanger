@@ -47,6 +47,7 @@ router.put("/:id", async (req, res) => {
     category: req.body.category,
     members: req.body.members,
   });
+
   Event.updateOne({ _id: req.params.id }, event)
     .then(() => {
       res.status(201).json({

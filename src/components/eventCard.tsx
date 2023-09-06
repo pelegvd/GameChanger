@@ -42,9 +42,11 @@ const EventCard: React.FC<SingleEventProps> = (props) => {
                 <Typography variant="h4">{companyName}</Typography>
                 <Typography variant="body2">{description}</Typography>
                 <Box>
-                    <Button component={Link}to={`/events/${_id}`} >
-                        Intrested
-                    </Button>
+                    <Link to={{ pathname: `/eventspage/${_id}`, state: { events: [events] }, }} >
+                        <Button >
+                            Intrested
+                        </Button>
+                    </Link>
                     <Button>
                         <EditIcon />
                     </Button>
