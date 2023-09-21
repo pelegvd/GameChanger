@@ -17,6 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import { eventPost } from "../api/EventService";
 
+
 document.body.addEventListener("submit", async function (event) {
   event.preventDefault();
   //const form = event.target as HTMLFormElement;
