@@ -9,29 +9,14 @@ import {
   TextField,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import Autocomplete from "@mui/material/Autocomplete";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormHelperText from "@mui/material/FormHelperText";
 import { eventPost } from "../api/EventService";
-
-
-document.body.addEventListener("submit", async function (event) {
-  event.preventDefault();
-  //const form = event.target as HTMLFormElement;
-  const data = new FormData(event.target as HTMLFormElement);
-  const jsonData = JSON.stringify(Object.fromEntries(data.entries()));
-  //await fetch('http://localhost:9000/event', {method:'post', headers:{"content-Type":"application/json"}, body:JSON.stringify(Object.fromEntries(data.entries()))})
-  try {
-    const result = await eventPost(jsonData);
-    return result.status;
-  } catch (error: any) {
-    const status = error.response.status;
-    console.log(status);
-  }
-});
+import AddIcon from "@mui/icons-material/Add";
 
 function AddEvent() {
   const [open, openchange] = useState(false);
@@ -44,31 +29,37 @@ function AddEvent() {
 
   const categorys = ["Sport", "Art", "Volenteer", "Food", "Watch"];
 
-  // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-  //   event.preventDefault();
-  //   const form = event.target as HTMLFormElement;
-  //   const data = new FormData(form);
-  //   fetch("http://localhost:9000/event", {
-  //     method: "post",
-  //     headers: { "content-Type": "application/json" },
-  //     body: JSON.stringify(Object.fromEntries(data.entries())),
-  //   })
-  //     .then((response: Response) => response.json())
-  //     .then((json) => json)
-  //     .catch((error) => console.log(error));
-  // };
-
   const [category, setCategory] = React.useState("");
 
   const handleChange = (event: SelectChangeEvent) => {
     setCategory(event.target.value);
   };
 
+  async function fetchData(data: any) {
+    try {
+      const result = await eventPost(data);
+      return result.status;
+    } catch (error: any) {
+      const status = error.response.status;
+      console.log(status);
+    }
+  }
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    const data = new FormData(e.target as HTMLFormElement);
+    const jsonData = JSON.stringify(Object.fromEntries(data.entries()));
+    console.log(jsonData);
+    fetchData(jsonData);
+  };
+
   return (
     <div style={{ textAlign: "center" }}>
-      <Button onClick={functionopenpopup} color="primary" variant="outlined">
+      {/* <Button onClick={functionopenpopup} color="primary" variant="outlined">
         Add Event
-      </Button>
+        <AddIcon />
+      </Button> */}
+      <AddIcon onClick={functionopenpopup} />
       <Dialog
         // fullScreen
         open={open}
@@ -84,7 +75,7 @@ function AddEvent() {
         </DialogTitle>
         <DialogContent>
           <Stack spacing={2} margin={2}>
-            <form>
+            <form onSubmit={handleSubmit}>
               <Stack margin={2}>
                 <label>Event Name</label>
                 <TextField
@@ -120,15 +111,17 @@ function AddEvent() {
               <Stack spacing={2} direction="row">
                 <Stack margin={2}>
                   <Select
+                    name="category"
                     labelId="demo-simple-select-required-label"
                     id="demo-simple-select-required"
                     value={category}
                     size="small"
-                    label="Age *"
                     onChange={handleChange}
                   >
                     {categorys.map((c) => (
-                      <MenuItem value={c}>{c}</MenuItem>
+                      <MenuItem key={c} value={c}>
+                        {c}
+                      </MenuItem>
                     ))}
                   </Select>
                   <FormHelperText>Please select category</FormHelperText>

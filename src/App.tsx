@@ -5,6 +5,7 @@ import Events from "./pages/events";
 import Home from "./pages/HomePage";
 import AddEvent from "./pages/AddEventPage";
 import EventPage from "./components/eventPage";
+import LoginForm from "./pages/loginpage";
 
 const App: React.FC = () => {
   return (
@@ -14,8 +15,9 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/add" element={<AddEvent />} />
-          <Route path="/eventspage" element={<Events />} />
-          <Route path="/eventspage/:eventID" element={<EventPage />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/events/:eventID" element={<EventPage />} />
+          <Route path="/sign-in" element={<LoginForm />} />
         </Routes>
       </Router>
     </div>
