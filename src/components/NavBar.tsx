@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../stylesheets/NavBar.css";
+import AddIcon from "@mui/icons-material/Add";
+import AddEvent from "../pages/AddEventPage";
 
 function NavBar() {
   const [click, setClick] = useState(false);
@@ -41,7 +43,7 @@ function NavBar() {
             </li>
             <li className="nav-item">
               <Link
-                to="/eventspage"
+                to="/events"
                 className="nav-links"
                 onClick={closeMobileMenu}
               >
@@ -56,6 +58,11 @@ function NavBar() {
               >
                 Account
               </Link>
+            </li>
+            <li className="nav-item">
+              <div className="nav-links" onClick={closeMobileMenu}>
+                <AddEvent />
+              </div>
             </li>
           </ul>
         </div>
