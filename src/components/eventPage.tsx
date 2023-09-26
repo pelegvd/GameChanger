@@ -6,7 +6,6 @@ import axios from "axios";
 interface Event {
     _id: string;
     title: string;
-    companyName: string;
     description: string;
 }
 
@@ -31,7 +30,6 @@ const EventPage: React.FC = () => {
     return (
          <div className="event-page-container">
             <Typography variant="h2">{myEvent.title}</Typography>
-            <Typography variant="h3">{myEvent.companyName}</Typography>
             <Typography variant="h6">{myEvent.description}</Typography>
             <Typography variant="body1">Location on Google Maps</Typography>
         </div>
