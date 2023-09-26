@@ -17,13 +17,20 @@ router.get("/", async (req, res) => {
   }
 });
 
-// router.get('/', async  (req, res) => {
-//     const events = await Event.find();
-//     res.status(200);
-//     res.json(events);
-//     res.end();
-// })
-
+router.get("/:id", async (req, res) => {
+  try {
+    const myEvent = await Event.findById(req.params.id);
+    if (!myEvent) {
+    return res.status(404).json({ message: "Event not found" });
+    }
+    res.status(200).json(myEvent);
+  } catch (err) {
+    console.log("Error with sending the single event", err);
+    res
+      .status(500)
+      .send("Internal Server Error: Something went wrong while fetching single event.");
+  }
+})
 router.post("/", async (req, res) => {
   await Event.create({
     id: new mongoose.Types.ObjectId(),
@@ -47,6 +54,7 @@ router.put("/:id", async (req, res) => {
     category: req.body.category,
     members: req.body.members,
   });
+
   Event.updateOne({ _id: req.params.id }, event)
     .then(() => {
       res.status(201).json({

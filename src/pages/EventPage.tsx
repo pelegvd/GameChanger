@@ -10,7 +10,6 @@ function EventPage1() {
       })
       .then((data) => {
         setEvent(data);
-        console.log(data);
       });
   };
 

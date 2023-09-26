@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Typography, Paper, Box, Button } from "@mui/material";
+import EditIcon from '@mui/icons-material/Edit';
 
 type MyEvent = {
     _id: string;
@@ -38,14 +39,17 @@ const EventCard: React.FC<SingleEventProps> = (props) => {
         >
             <Paper elevation={5} >
                 <Typography variant="h3">{title}</Typography>
-                <Typography variant="h4">{companyName}</Typography>
                 <Typography variant="body2">{description}</Typography>
-                <Button component={Link} to={`/events/${_id}`} >
-                    <Link style={{ textDecoration: 'none' }} to={`/events/${_id}`} state={{ events }}>
-                        Interested
+                <Box>
+                    <Link to={`/eventspage/${_id}`} >
+                        <Button >
+                            Intrested
+                        </Button>
                     </Link>
-                </Button>
-
+                    <Button>
+                        <EditIcon />
+                    </Button>
+                </Box>
             </Paper>
         </Box>
     );
