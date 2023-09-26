@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { Typography } from "@mui/material";
+import axios from "axios";
 
 interface Event {
     _id: string;
@@ -11,11 +12,17 @@ interface Event {
 
 const EventPage: React.FC = () => {
     const { eventID } = useParams<{ eventID: string }>();
-    const location = useLocation();
+    const [myEvent, setmyEvent] = useState<Event>();
+    
+    useEffect(()=>{
+        axios
+            .get(`http://localhost:9000/eventspage/${eventID}`)
+            .then((res)=>{
+                setmyEvent(res.data);
+            })
+            .catch((err)=>console.log("Error:",err))
+    },[]);
 
-    const events: Event[] | undefined = location.state?.events;
-
-    const myEvent = events?.find(e => e._id === eventID);
 
     if (!myEvent) {
         return <div>Event not found</div>;

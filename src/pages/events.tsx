@@ -22,6 +22,7 @@ export const Events: React.FC = () => {
             .then((res) => {
                 setEvents(res.data);
                 setLoading(false);
+                
             })
             .catch((err) => console.log("Error:", err))
     }, [])
