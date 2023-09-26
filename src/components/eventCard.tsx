@@ -39,7 +39,6 @@ const EventCard: React.FC<SingleEventProps> = (props) => {
         >
             <Paper elevation={5} >
                 <Typography variant="h3">{title}</Typography>
-                <Typography variant="h4">{companyName}</Typography>
                 <Typography variant="body2">{description}</Typography>
                 <Box>
                     <Link to={`/eventspage/${_id}`} >
