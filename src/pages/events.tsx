@@ -9,7 +9,6 @@ import { Stack } from "@mui/material";
 export interface Event {
     _id: string;
     title: string;
-    companyName: string;
     description: string;
 }
 
@@ -18,7 +17,7 @@ export const Events: React.FC = () => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         axios
-            .get("http://localhost:9000/eventspage")
+            .get("http://localhost:9000/events")
             .then((res) => {
                 setEvents(res.data);
                 setLoading(false);
@@ -40,9 +39,7 @@ export const Events: React.FC = () => {
                                 <EventCard
                                     _id={event._id}
                                     title={event.title}
-                                    companyName={event.companyName}
                                     description={event.description}
-                                    events={events}
                                 />
                             </li>
                         ))}

@@ -1,25 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Typography, Paper, Box, Button } from "@mui/material";
+import { Typography, Paper, Box, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 
 type MyEvent = {
     _id: string;
     title: string;
-    companyName: string;
     description: string;
 };
 
 interface SingleEventProps {
     _id: string;
     title: string;
-    companyName: string;
     description: string;
-    events?: MyEvent[];
 }
 
 const EventCard: React.FC<SingleEventProps> = (props) => {
-    const { _id, title, companyName, description, events } = props;
+    const { _id, title, description } = props;
+    const [open, setOpen] = useState(false);
     return (
         <Box
             sx={{
@@ -41,8 +39,8 @@ const EventCard: React.FC<SingleEventProps> = (props) => {
                 <Typography variant="h3">{title}</Typography>
                 <Typography variant="body2">{description}</Typography>
                 <Box>
-                    <Link to={`/eventspage/${_id}`} >
-                        <Button >
+                    <Link to={`/events/${_id}`} >
+                        <Button onClick={() => setOpen(!open)}>
                             Intrested
                         </Button>
                     </Link>
@@ -51,6 +49,11 @@ const EventCard: React.FC<SingleEventProps> = (props) => {
                     </Button>
                 </Box>
             </Paper>
+            <Dialog open={open}
+                onClick={() => setOpen(!open)}
+            >
+                
+            </Dialog>
         </Box>
     );
 }

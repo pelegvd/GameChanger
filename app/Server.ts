@@ -9,9 +9,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-
-app.use('/event', router);
-app.use('/eventspage', router);
+app.use('/events', router);
 
 
 async function init() {
@@ -26,7 +24,7 @@ async function init() {
   console.log("connected to mongoDB");
 
   app.listen(9000, () =>
-    console.log(`server started on port: 9000`)
+    console.log(`server started on port:9000`)
   );
 }
 

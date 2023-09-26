@@ -14,8 +14,8 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/add" element={<AddEvent />} />
-          <Route path="/eventspage" element={<Events />} />
-          <Route path="/eventspage/:eventID" element={<EventPage />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/events/:eventID" element={<EventPage />} />
         </Routes>
       </Router>
     </div>

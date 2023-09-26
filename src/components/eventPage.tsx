@@ -11,13 +11,15 @@ interface Event {
 
 const EventPage: React.FC = () => {
     const { eventID } = useParams<{ eventID: string }>();
-    const [myEvent, setmyEvent] = useState<Event>();
+    const [myEvent, setMyEvent] = useState<Event>();
     
     useEffect(()=>{
         axios
-            .get(`http://localhost:9000/eventspage/${eventID}`)
+            .get(`http://localhost:9000/events/${eventID}`)
             .then((res)=>{
-                setmyEvent(res.data);
+                setMyEvent(res.data);
+                console.log(res.data);
+                
             })
             .catch((err)=>console.log("Error:",err))
     },[]);
