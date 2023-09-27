@@ -15,9 +15,9 @@ const EventPage: React.FC = () => {
     const [myEvent, setMyEvent] = useState<Event>();
     useEffect(() => {
       axios
-        .get(`http://localhost:9000/eventspage/${eventID}`)
+        .get(`http://localhost:9000/events/${eventID}`)
         .then((res) => {
-          setmyEvent(res.data);
+          setMyEvent(res.data);
         })
         .catch((err) => console.log("Error:", err));
     }, []);
