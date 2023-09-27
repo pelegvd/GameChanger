@@ -55,7 +55,9 @@ const EventCard: React.FC<SingleEventProps> = (props) => {
                 
             </Dialog>
         </Box>
-    );
-}
+      </Paper>
+    </Box>
+  );
+};
 
 export default EventCard;

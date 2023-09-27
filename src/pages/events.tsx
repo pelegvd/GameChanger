@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import EventCard from "../components/eventCard";
 import axios from "axios";
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from "@mui/material/CircularProgress";
 
-import '../stylesheets/events.css';
+import "../stylesheets/events.css";
 import { Stack } from "@mui/material";
 
 export interface Event {
