@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../stylesheets/loginpage.css";
+import "../stylesheets/Loginpage.css";
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -53,7 +53,7 @@ function LoginForm() {
       <div className="box">
         <p>
           Don't have an account?{" "}
-          <a className="signup" href="#">
+          <a className="signup" href="/sign-up">
             Sign Up
           </a>
         </p>

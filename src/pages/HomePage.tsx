@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -43,7 +44,9 @@ function Home() {
             spacing={2}
             justifyContent="center"
           >
+            <Link to='/sign-up'>
             <Button variant="contained">Get Started</Button>
+            </Link>
           </Stack>
         </Container>
       </Box>
