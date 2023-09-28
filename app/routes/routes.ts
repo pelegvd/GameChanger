@@ -31,6 +31,7 @@ router.get("/:id", async (req, res) => {
       .send("Internal Server Error: Something went wrong while fetching single event.");
   }
 })
+
 router.post("/", async (req, res) => {
   await Event.create({
     id: new mongoose.Types.ObjectId(),
