@@ -11,17 +11,16 @@ interface Event {
 }
 
 const EventPage: React.FC = () => {
-  const { eventID } = useParams<{ eventID: string }>();
-  const [myEvent, setmyEvent] = useState<Event>();
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:9000/eventspage/${eventID}`)
-      .then((res) => {
-        setmyEvent(res.data);
-      })
-      .catch((err) => console.log("Error:", err));
-  }, []);
+    const { eventID } = useParams<{ eventID: string }>();
+    const [myEvent, setMyEvent] = useState<Event>();
+    useEffect(() => {
+      axios
+        .get(`http://localhost:9000/eventspage/${eventID}`)
+        .then((res) => {
+          setmyEvent(res.data);
+        })
+        .catch((err) => console.log("Error:", err));
+    }, []);
 
   if (!myEvent) {
     return <div>Event not found</div>;
