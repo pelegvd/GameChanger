@@ -1,9 +1,9 @@
 import express from "express";
 import mongoose from "mongoose";
 import Event from "../models/Event";
-export const router = express.Router();
+export const eventRouter = express.Router();
 
-router.get("/", async (req, res) => {
+eventRouter.get("/", async (req, res) => {
   try {
     const events = await Event.find();
     res.status(200).json(events);
@@ -17,22 +17,24 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+eventRouter.get("/:id", async (req, res) => {
   try {
     const myEvent = await Event.findById(req.params.id);
     if (!myEvent) {
-    return res.status(404).json({ message: "Event not found" });
+      return res.status(404).json({ message: "Event not found" });
     }
     res.status(200).json(myEvent);
   } catch (err) {
     console.log("Error with sending the single event", err);
     res
       .status(500)
-      .send("Internal Server Error: Something went wrong while fetching single event.");
+      .send(
+        "Internal Server Error: Something went wrong while fetching single event."
+      );
   }
-})
+});
 
-router.post("/", async (req, res) => {
+eventRouter.post("/", async (req, res) => {
   await Event.create({
     id: new mongoose.Types.ObjectId(),
     title: req.body.title,
@@ -46,7 +48,7 @@ router.post("/", async (req, res) => {
   res.end();
 });
 
-router.put("/:id", async (req, res) => {
+eventRouter.put("/:id", async (req, res) => {
   const event = new Event({
     _id: req.params.id,
     title: req.body.title,
@@ -69,7 +71,7 @@ router.put("/:id", async (req, res) => {
     });
 });
 
-router.delete("/:id", async (req, res) => {
+eventRouter.delete("/:id", async (req, res) => {
   Event.deleteOne({ _id: req.params.id })
     .then(() => {
       res.status(200).json({
