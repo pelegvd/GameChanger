@@ -1,8 +1,21 @@
 import React, { useState } from "react";
-import { Stack, Typography, Paper, Box, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, IconButton, TextField, ButtonGroup } from "@mui/material";
+import {
+    Stack,
+    Typography,
+    Paper,
+    Box,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
+    IconButton,
+    TextField,
+} from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
-import { useForm } from "react-hook-form";
+import axios from "axios";
 
 interface SingleEventProps {
     _id: string;
@@ -10,29 +23,53 @@ interface SingleEventProps {
     description: string;
 }
 
-
 const EventCard: React.FC<SingleEventProps> = (props) => {
-    const { title, description } = props;
+    const { title, description, _id } = props;
     const [open, setOpen] = useState(false);
-    const [dialogType, setDialogType] = useState(true); // if true --> intrested, if false --> edit
+    const [dialogType, setDialogType] = useState(true);
     const [data, setData] = useState<{
-        title: string | undefined;
-        description: string | undefined;
+        title: string;
+        description: string;
     }>({
         title: "",
-        description: ""
+        description: "",
     });
+
     const handleClick = (e: React.MouseEvent) => {
         e.preventDefault();
         setDialogType(false);
         setOpen(true);
     };
+
     const handleClose = () => {
         setOpen(false);
     };
 
-    const handleSubscribe = () => {
+    const handleSubscribe = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setData({
+            ...data,
+            [name]: value,
+        });
+    };
 
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            const res = await axios.patch(`http://localhost:3000/events${_id}`, {
+                title: data.title,
+                description: data.description,
+            });
+            if (res.status === 200) {
+                setOpen(false);
+            } else if (res.status === 404) {
+                console.error('Event not found');
+            } else {
+                console.error('Error updating event:', res.statusText);
+            }
+        } catch (error) {
+            console.error('Error updating event:', error);
+        }
     };
 
     return (
@@ -90,7 +127,7 @@ const EventCard: React.FC<SingleEventProps> = (props) => {
                 </Dialog>
                 :
                 <Dialog open={open} onClose={handleClose} fullWidth={true}>
-                    <form noValidate>
+                    <form onSubmit={handleSubmit}>
                         <DialogTitle>
                             {`Edit ${title}`}
                         </DialogTitle>
@@ -102,15 +139,20 @@ const EventCard: React.FC<SingleEventProps> = (props) => {
                                     multiline
                                     maxRows={2}
                                     value={data.title}
+                                    name="title"
+                                    type="text"
+                                    onChange={handleSubscribe}
                                 />
                                 <TextField
                                     id="standard-multiline-static"
                                     label="Description"
                                     multiline
                                     rows={10}
-                                    defaultValue={description}
                                     variant="outlined"
                                     value={data.description}
+                                    name="description"
+                                    type="text"
+                                    onChange={handleSubscribe}
                                 />
                             </Stack>
                         </DialogContent>
@@ -122,13 +164,13 @@ const EventCard: React.FC<SingleEventProps> = (props) => {
                                     pb: "0.3rem"
                                 }}>
                                 <Button variant="contained" color="error" onClick={handleClose}>Cancel</Button>
-                                <Button type="submit" variant="contained" color="success" onClick={handleSubscribe}>submit</Button>
+                                <Button type="submit" variant="contained" color="success" onClick={handleSubmit}>Submit</Button>
                             </Stack>
                         </DialogActions>
                     </form>
                 </Dialog>
             }
-        </Box >
+        </Box>
     );
 };
 

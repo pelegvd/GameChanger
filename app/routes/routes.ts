@@ -84,18 +84,23 @@ router.delete("/:id", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   try {
-    Event.findByIdAndUpdate(req.params.id, req.body, { new: true })
-      .then((myEvent) => {
-        if (!myEvent) {
-          return res.status(404).json({ message: "Event not found" });
-        }
-      })
+    const updatedEvent = await Event.findByIdAndUpdate(
+      req.params.id,
+      {
+        title: req.body.title,
+        description: req.body.description,
+      },
+      { new: true }
+    );
+
+    if (!updatedEvent) {
+      return res.status(404).json({ message: "Event not found" });
+    }
+
+    res.status(200).json(updatedEvent);
   } catch (err) {
-    console.log("Error from backend:", err);
-    res
-      .status(500)
-      .send(
-        "Internal Server Error: Something went wrong while trying to update a document."
-      );
+    console.error("Error from backend:", err);
+    res.status(500).send("Internal Server Error: Something went wrong while trying to update a document.");
   }
-})
+});
+
