@@ -4,6 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import { eventRouter } from "./routes/eventRoute";
 import { signupRouter } from "./routes/signupRoute";
+import { signinRouter } from './routes/signinRoute';
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(bodyParser.json());
 
 app.use("/events", eventRouter);
 app.use("/signup", signupRouter);
+app.use('/signin', signinRouter);
 
 async function init() {
   const mongoConnectionString =
